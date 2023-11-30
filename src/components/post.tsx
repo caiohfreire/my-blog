@@ -1,6 +1,8 @@
-import { Button, ButtonGroup } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
+import { useNavigate } from "react-router-dom";
 
 export default function Post() {
+  const router = useNavigate();
 
   return (
     <div className="max-w-[1280px] mx-auto px-4">
@@ -26,6 +28,7 @@ export default function Post() {
           <p className="line-clamp-5 break-words">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean pulvinar magna sed enim luctus, ut viverra dui molestie. Suspendisse ut aliquam lacus. Aenean ullamcorper orci magna, ac luctus risus posuere non. Morbi eget auctor lorem. Nullam metus est, lobortis vitae gravida nec, rhoncus nec ante.</p>
 
           <Button
+            onClick={() => router('/post')}
             color="warning"
             className="bg-stone-900 dark:bg-[#F3A424] shadow-md text-white font-medium tracking-wide w-full xl:max-w-[50%] xl:self-end">
             See more
