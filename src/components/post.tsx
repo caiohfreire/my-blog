@@ -30,7 +30,7 @@ export default function Post() {
           <Button
             onClick={() => router('/post')}
             color="warning"
-            className="bg-stone-900 dark:bg-[#F3A424] shadow-md text-white font-medium tracking-wide w-full xl:max-w-[50%] xl:self-end">
+            className="bg-stone-900 dark:bg-[#F3A424] my-4 shadow-md text-white font-medium tracking-wide w-full xl:max-w-[50%] xl:self-end">
             See more
           </Button>
         </div>
