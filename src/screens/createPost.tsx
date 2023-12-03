@@ -1,5 +1,5 @@
 import { Button, Input } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { toolbarOptions } from "../constants/quill";
@@ -17,8 +17,11 @@ export default function CreatePost() {
   function handleFileChange(ev: React.ChangeEvent<HTMLInputElement>) {
     const selectedFiles = ev.target.files!;
     setFiles(Array.from(selectedFiles));
-    console.log(files)
   }
+
+  useEffect(() => {
+    console.log(files);
+  }, [files]);
 
   function handleQuillChange(value: string) {
     setContent(value);
@@ -26,6 +29,7 @@ export default function CreatePost() {
 
   async function handlePublish(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault();
+
     const id = user?.id;
     const author = user?.name;
     console.log(author)
@@ -34,7 +38,7 @@ export default function CreatePost() {
       const data = {
         title,
         summary,
-        image: files,
+        image: files[0],
         content,
         author,
         authorID: id
@@ -43,14 +47,14 @@ export default function CreatePost() {
 
       const response = await Axios.post('/publish', data);
       console.log('RESPONSE:', response.data);
+
+      setTitle('');
+      setSummary('');
+      setFiles([]);
+      setContent('');
     } catch (error) {
       console.error('Error publishing post:', error);
     }
-
-    setTitle('');
-    setSummary('');
-    setFiles([]);
-    setContent('');
   }
 
   return (
