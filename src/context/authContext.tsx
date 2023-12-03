@@ -21,7 +21,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const router = useNavigate();
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState<IUser | null>(() => {
+  const [user] = useState<IUser | null>(() => {
     const token = Cookies.get('token');
 
     function parseJwt(token: string | null) {
