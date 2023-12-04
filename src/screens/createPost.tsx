@@ -1,5 +1,5 @@
 import { Button, Input } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { toolbarOptions } from "../constants/quill";
@@ -14,9 +14,16 @@ export default function CreatePost() {
   const [files, setFiles] = useState<File[]>([]);
   const [content, setContent] = useState('');
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   function handleFileChange(ev: React.ChangeEvent<HTMLInputElement>) {
     const selectedFiles = ev.target.files!;
     setFiles(Array.from(selectedFiles));
+
+    // Limpar o valor do campo de arquivo
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   }
 
   useEffect(() => {
@@ -35,17 +42,18 @@ export default function CreatePost() {
     console.log(author)
 
     try {
-      const data = {
-        title,
-        summary,
-        image: files[0],
-        content,
-        author,
-        authorID: id
-      };
-      console.log(data)
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('summary', summary);
 
-      const response = await Axios.post('/publish', data);
+      if (files[0] instanceof File) {
+        formData.append('image', files[0]);
+      }
+      formData.append('content', content);
+      formData.append('author', author!);
+      formData.append('authorID', id!);
+
+      const response = await Axios.post('/publish', formData);
       console.log('RESPONSE:', response.data);
 
       setTitle('');
@@ -70,9 +78,13 @@ export default function CreatePost() {
           placeholder="Summary"
           value={summary}
           onChange={(ev) => setSummary(ev.target.value)} />
-        <Input
+        <input
           type="file"
-          onChange={handleFileChange} />
+          onChange={handleFileChange}
+          className="relative w-full inline-flex tap-highlight-transparent shadow-sm px-3 bg-default-100 data-[hover=true]:bg-default-200 group-data-[focus=true]:bg-default-100 min-h-unit-10 rounded-medium flex-col items-start justify-center gap-0 transition-background motion-reduce:transition-none !duration-150 outline-none group-data-[focus-visible=true]:z-10 group-data-[focus-visible=true]:ring-2 group-data-[focus-visible=true]:ring-focus group-data-[focus-visible=true]:ring-offset-2 group-data-[focus-visible=true]:ring-offset-background h-14 py-2" />
+        {/* <Input
+          type="file"
+          onChange={handleFileChange} /> */}
         <ReactQuill
           value={content}
           onChange={handleQuillChange}

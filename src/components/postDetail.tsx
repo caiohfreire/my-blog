@@ -3,6 +3,8 @@ import { usePostContext } from "../context/postContext"
 import { useEffect } from "react";
 import IMG from '../assets/caio_freire.png'
 import { Format } from "../utils/formatter";
+import 'react-quill/dist/quill.snow.css';
+import DOMPurify from 'dompurify';
 
 export default function PostDetail() {
   const { selectedPost, getPostByID } = usePostContext();
@@ -15,6 +17,8 @@ export default function PostDetail() {
   if (selectedPost === null) {
     return <div className="flex items-center justify-center h-[calc(100vh-10rem)] mx-auto font-bold text-4xl">Post not found {":("}</div>
   }
+
+  const sanitizedContent = DOMPurify.sanitize(selectedPost.content);
 
   return (
     <div className="max-w-[1280px] mx-auto px-4">
@@ -32,10 +36,7 @@ export default function PostDetail() {
           className="object-cover w-full max-h-[30rem] h-full rounded-md shadow-lg"
         />
 
-        <div
-          dangerouslySetInnerHTML={{ __html: selectedPost.content }}
-          className="py-8"
-        />
+        <div className="ql-editor py-8" dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
 
       </div>
     </div>
