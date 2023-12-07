@@ -6,7 +6,7 @@ export interface IPost {
   title: string;
   summary: string;
   content: string;
-  image: string[];
+  image: string;
   date: Date;
   authorID: string,
 }

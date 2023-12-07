@@ -7,7 +7,7 @@ export interface IPostHomeType {
   title: string;
   summary: string;
   content: string;
-  image: string[];
+  image: string;
   date: Date;
   authorID: string,
 }
@@ -18,7 +18,7 @@ interface IPostProps {
 
 export default function Post({ data }: IPostProps) {
   const router = useNavigate();
-
+  console.log('Image URL:', data.image);
   return (
     <div className="max-w-[1280px] mx-auto px-4">
       <div
@@ -27,7 +27,7 @@ export default function Post({ data }: IPostProps) {
           md:grid md:grid-cols-2 `}
       >
         <img
-          src={data.image[0]}
+          src={data.image}
           className="w-full max-h-[500px] h-full shadow"
         />
         <div className="flex flex-col justify-between p-4 h-full">

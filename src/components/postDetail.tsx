@@ -5,8 +5,10 @@ import IMG from '../assets/caio_freire.png'
 import { Format } from "../utils/formatter";
 import 'react-quill/dist/quill.snow.css';
 import DOMPurify from 'dompurify';
+import { useAuthContext } from "../context/authContext";
 
 export default function PostDetail() {
+  const { user } = useAuthContext();
   const { selectedPost, getPostByID } = usePostContext();
   const { id } = useParams<{ id: string }>();
 
@@ -28,7 +30,7 @@ export default function PostDetail() {
 
         <div className="flex flex-col py-8 text-center font-medium text-neutral-500">
           <span className="font-medium text-base">{Format(selectedPost.date)}</span>
-          <span className="font-bold">by @{selectedPost.authorID}</span>
+          <span className="font-bold">by @{user?.name}</span>
         </div>
 
         <img
