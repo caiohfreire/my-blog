@@ -9,7 +9,7 @@ export default function Navbar() {
   const router = useNavigate();
 
   return (
-    <div className='block h-20'>
+    <div className='block'>
       <nav className="fixed top-0 z-50 flex w-full h-20 bg-neutral-950 dark:bg-stone-200 shadow-xl">
         <div className="max-w-[1280px] flex justify-between px-4 w-full items-center mx-auto">
           <h2 className="font-bold text-2xl text-white dark:text-stone-800 cursor-pointer" onClick={() => router('/')}>MyBlog</h2>

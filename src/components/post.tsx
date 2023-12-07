@@ -1,24 +1,13 @@
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { Format } from "../utils/formatter";
-
-export interface IPostHomeType {
-  id: string;
-  title: string;
-  summary: string;
-  content: string;
-  image: string;
-  date: Date;
-  authorID: string,
-}
-
-interface IPostProps {
-  data: IPostHomeType;
-}
+import { IPostProps } from "../model/IPost";
+import { useAuthContext } from "../context/authContext";
 
 export default function Post({ data }: IPostProps) {
   const router = useNavigate();
-  console.log('Image URL:', data.image);
+  const { user } = useAuthContext();
+
   return (
     <div className="max-w-[1280px] mx-auto px-4">
       <div
@@ -27,15 +16,15 @@ export default function Post({ data }: IPostProps) {
           md:grid md:grid-cols-2 `}
       >
         <img
-          src={data.image}
-          className="w-full max-h-[500px] h-full shadow"
+          src={`data:image/png;base64,${data.image}`}
+          className="w-[400px] min-w-full h-[200px] min-h-full object-cover shadow"
         />
         <div className="flex flex-col justify-between p-4 h-full">
 
           <div className="flex flex-col gap-2">
             <h2 className="text-4xl font-bold">{data.title}</h2>
             <div className="flex gap-4 items-center ">
-              <h2 className="text-base font-bold text-neutral-800 dark:text-neutral-300">{data.authorID}</h2>
+              <h2 className="text-base font-bold text-neutral-800 dark:text-neutral-300">{user?.name}</h2>
               <span className="text-sm font-medium">{Format(data.date)}</span>
             </div>
           </div>

@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import Footer from '../components/footer'
-import Post, { IPostHomeType } from '../components/post'
+import Post from '../components/post'
 import { usePostContext } from '../context/postContext'
+import { IPostHomeType } from '../model/IPost';
 
 export default function Home() {
 
@@ -12,13 +13,16 @@ export default function Home() {
   }, []);
 
   return (
-    <div className='max-h-full min-h-screen'>
-      <div className='flex flex-col gap-12 pt-14 pb-20'>
+    <div className='relative min-h-screen'>;
+      <div className='flex flex-col gap-12 pt-32 pb-20 flex-1'>
         {post?.map((p: IPostHomeType) => (
           <Post key={p.id} data={p} />
         ))}
       </div>
-      <Footer />
+
+      <div className='absolute bottom-0 w-full'>
+        <Footer />
+      </div>
     </div>
   )
 }
