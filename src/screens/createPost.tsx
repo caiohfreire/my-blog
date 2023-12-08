@@ -60,11 +60,11 @@ export default function CreatePost() {
   }
 
   return (
-    <div className="flex max-w-[1280px] mx-auto px-4 h-[calc(100vh-80px)]">
+    <div className="flex max-w-[1280px] mx-auto px-4 h-screen">
       <form
         encType="multipart/form-data"
         onSubmit={handlePublish}
-        className="flex flex-col gap-4 pt-14 pb-4 w-full min-h-full">
+        className="flex flex-col gap-4 pb-4 w-full pt-[120px] min-h-screen h-full">
         <Input
           value={title}
           placeholder="Title"
@@ -73,23 +73,25 @@ export default function CreatePost() {
           value={summary}
           placeholder="Summary"
           onChange={(ev) => setSummary(ev.target.value)} />
-        <input
-          type="file"
-          name="image"
-          onChange={ChangeFile}
-          className="relative w-full shadow-sm px-3 bg-default-100 data-[hover=true]:bg-default-200 group-data-[focus=true]:bg-default-100 min-h-unit-10 rounded-medium flex-col items-center justify-center gap-0 transition-background motion-reduce:transition-none !duration-150 outline-none group-data-[focus-visible=true]:z-10 group-data-[focus-visible=true]:ring-2 group-data-[focus-visible=true]:ring-focus group-data-[focus-visible=true]:ring-offset-2 group-data-[focus-visible=true]:ring-offset-background h-14 py-3" />
+        <div className="flex">
+          <input
+            type="file"
+            name="image"
+            onChange={ChangeFile}
+            className="relative w-full inline-flex tap-highlight-transparent shadow-sm px-3 bg-default-100 data-[hover=true]:bg-default-200 group-data-[focus=true]:bg-default-100 min-h-unit-10 rounded-medium flex-col items-start justify-center gap-0 transition-background motion-reduce:transition-none !duration-150 outline-none group-data-[focus-visible=true]:z-10 group-data-[focus-visible=true]:ring-2 group-data-[focus-visible=true]:ring-focus group-data-[focus-visible=true]:ring-offset-2 group-data-[focus-visible=true]:ring-offset-background h-14 py-3" />
+        </div>
         <ReactQuill
           value={content}
           onChange={handleQuillChange}
           modules={toolbarOptions}
           theme="snow"
-          className="rounded-xl border-none max-h-[50vh] h-full overflow-auto shadow-xl 
+          className="rounded-xl border-none  h-full overflow-auto shadow-xl 
           bg-[#F4F4F5] dark:bg-[#27272A] text-stone-800 dark:text-white"
         />
         <Button
           color="warning"
           type="submit"
-          className="shadow-lg font-bold">
+          className="shadow-lg font-bold max-h-10 h-full">
           Publish Post
         </Button>
       </form>

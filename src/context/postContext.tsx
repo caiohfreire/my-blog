@@ -8,6 +8,7 @@ export interface IPost {
   content: string;
   image: string;
   date: Date;
+  author: string;
   authorID: string,
 }
 
@@ -16,6 +17,7 @@ interface PostContextType {
   getPosts: () => void;
   selectedPost: IPost | null;
   getPostByID: (id: string) => void;
+  isLoading: boolean;
 }
 
 const PostContext = createContext<PostContextType | undefined>(undefined);
@@ -23,27 +25,36 @@ const PostContext = createContext<PostContextType | undefined>(undefined);
 export const PostProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [post, setPost] = useState([]);
   const [selectedPost, setSelectedPost] = useState<IPost | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   async function getPosts() {
-    const response = await Axios.get('/Posts');
-    setPost(response.data);
-    console.log(response.data)
+    setIsLoading(true);
+    try {
+      const response = await Axios.get('/Posts');
+      setPost(response.data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error)
+      setIsLoading(false);
+    }
   }
 
   async function getPostByID(ID: string) {
+    setIsLoading(true);
     try {
       const response = await Axios.get(`/Post/${ID}`);
       setSelectedPost(response.data);
-      console.log("Received post:", response.data);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching post by ID:", error);
       setSelectedPost(null);
+      setIsLoading(false);
     }
   }
 
   return (
     <PostContext.Provider
-      value={{ post, getPosts, selectedPost, getPostByID }}>
+      value={{ post, getPosts, selectedPost, getPostByID, isLoading }}>
       {children}
     </PostContext.Provider>
   )
