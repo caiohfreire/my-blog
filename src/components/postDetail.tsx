@@ -8,7 +8,7 @@ import { useAuthContext } from "../context/authContext";
 import { SkeletonDetail } from "../utils/skeletonDetail";
 
 export default function PostDetail() {
-  const { user, isAuthenticated } = useAuthContext();
+  const { isAuthenticated } = useAuthContext();
   const { selectedPost, getPostByID, isLoading } = usePostContext();
   const { id } = useParams<{ id: string }>();
 
