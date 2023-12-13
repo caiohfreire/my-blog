@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export const Axios = axios.create({
-  baseURL: 'http://localhost:8080',
-  // baseURL: 'https://blog-api-5l0l.onrender.com',
+  // baseURL: 'http://localhost:8080',
+  baseURL: 'https://blog-api-5l0l.onrender.com',
   // headers: {
   //   "Content-type": "multi",
   // },
