@@ -3,7 +3,7 @@ import { Card, Skeleton } from "@nextui-org/react"
 
 export const SkeletonHome = () => {
   return (
-    <Card className="grid grid-cols-2 gap-4 min-h-full space-y-5 p-4" radius="lg">
+    <Card className="grid grid-cols-2 gap-4 min-h-full space-y-5 p-4 mx-4" radius="lg">
 
       {/* IMAGE */}
       <Skeleton className="rounded-lg">

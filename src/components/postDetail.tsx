@@ -1,16 +1,22 @@
-import { useParams } from "react-router-dom";
-import { usePostContext } from "../context/postContext"
+import { NavigateOptions, useParams } from "react-router-dom";
+import { IPost, usePostContext } from "../context/postContext"
 import { useEffect } from "react";
 import { Format } from "../utils/formatter";
 import 'react-quill/dist/quill.snow.css';
 import DOMPurify from 'dompurify';
 import { useAuthContext } from "../context/authContext";
 import { SkeletonDetail } from "../utils/skeletonDetail";
+import { useNavigate } from 'react-router-dom';
+
+interface CustomNavigateOptions extends NavigateOptions {
+  post?: IPost;
+}
 
 export default function PostDetail() {
   const { isAuthenticated } = useAuthContext();
   const { selectedPost, getPostByID, isLoading } = usePostContext();
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPostByID(id!);
@@ -21,6 +27,11 @@ export default function PostDetail() {
   }
 
   const sanitizedContent = DOMPurify.sanitize(selectedPost!.content);
+
+  const handleEdit = () => {
+    const navigateOptions: CustomNavigateOptions = { state: { post: selectedPost } };
+    navigate(`/create/${id}`, navigateOptions);
+  };
 
   return (
     <div className="max-w-[1280px] mx-auto px-4 h-full pt-32" >
@@ -41,7 +52,9 @@ export default function PostDetail() {
 
             {isAuthenticated && (
               <div className="absolute right-0 w-2/12">
-                <button className="border border-stone-500 p-4 w-full rounded-md shadow-lg text-white dark:text-black bg-stone-900 dark:bg-[#F3A424]">
+                <button
+                  onClick={handleEdit}
+                  className="border border-stone-500 p-4 w-full rounded-md shadow-lg text-white dark:text-black bg-stone-900 dark:bg-[#F3A424]">
                   Edit
                 </button>
               </div>

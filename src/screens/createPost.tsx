@@ -6,6 +6,7 @@ import { toolbarOptions } from "../constants/quill";
 import '../index.css';
 import { Axios } from "../service/axios";
 import { useAuthContext } from "../context/authContext";
+import { useLocation } from "react-router-dom";
 
 export default function CreatePost() {
   const { user } = useAuthContext();
@@ -13,6 +14,18 @@ export default function CreatePost() {
   const [summary, setSummary] = useState('');
   const [files, setFiles] = useState<File | undefined>(undefined);
   const [content, setContent] = useState('');
+
+  const location = useLocation();
+  const { post } = location.state || { post: null };
+
+  useEffect(() => {
+    if (post) {
+      setTitle(post.title);
+      setFiles(post.image);
+      setSummary(post.summary);
+      setContent(post.content);
+    }
+  }, [post]);
 
   useEffect(() => {
     console.log(files);
@@ -23,7 +36,6 @@ export default function CreatePost() {
       files: FileList;
     }
     setFiles(target.files[0]);
-    console.log('File', files)
   }
 
   function handleQuillChange(value: string) {
@@ -47,7 +59,15 @@ export default function CreatePost() {
 
       console.log('FORM DATA:', Object.fromEntries(formData.entries()));
 
-      const response = await Axios.post('/Publish', formData);
+      let response;
+
+      if (post) {
+        formData.append('postId', post.id);
+        response = await Axios.put(`/Edit/${post.id}`, formData);
+      } else {
+        response = await Axios.post('/Publish', formData);
+      }
+
       console.log('RESPONSE:', response.data);
 
       setTitle('');
@@ -92,7 +112,7 @@ export default function CreatePost() {
           color="warning"
           type="submit"
           className="shadow-lg font-bold max-h-10 h-full">
-          Publish Post
+         {post.id ? 'Edit Post' : 'Publish Post'}
         </Button>
       </form>
     </div>
