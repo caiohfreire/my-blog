@@ -7,6 +7,7 @@ import '../index.css';
 import { Axios } from "../service/axios";
 import { useAuthContext } from "../context/authContext";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 export default function CreatePost() {
   const { user } = useAuthContext();
@@ -27,10 +28,6 @@ export default function CreatePost() {
     }
   }, [post]);
 
-  useEffect(() => {
-    console.log(files);
-  }, [files]);
-
   function ChangeFile(e: React.FormEvent<HTMLInputElement>) {
     const target = e.target as HTMLInputElement & {
       files: FileList;
@@ -50,6 +47,7 @@ export default function CreatePost() {
 
     try {
       const formData = new FormData();
+      formData.append('id', post.id);
       formData.append('title', title);
       formData.append('summary', summary);
       formData.append('image', files!);
@@ -63,7 +61,8 @@ export default function CreatePost() {
 
       if (post) {
         formData.append('postId', post.id);
-        response = await Axios.put(`/Edit/${post.id}`, formData);
+        response = await Axios.put(`/Edit/${post.id}`, Object.fromEntries(formData.entries()));
+        console.log('RESPONSE DO IF', response);
       } else {
         response = await Axios.post('/Publish', formData);
       }
@@ -75,7 +74,11 @@ export default function CreatePost() {
       setFiles(undefined);
       setContent('');
     } catch (error) {
-      console.error('Error publishing post:', error);
+      // if (axios.isAxiosError(error)) {
+      //   console.error('Axios Error:', error.response);
+      // } else {
+      //   console.error('Error publishing post:', error);
+      // }
     }
   }
 
@@ -112,7 +115,7 @@ export default function CreatePost() {
           color="warning"
           type="submit"
           className="shadow-lg font-bold max-h-10 h-full">
-         {post.id ? 'Edit Post' : 'Publish Post'}
+          {post.id ? 'Edit Post' : 'Publish Post'}
         </Button>
       </form>
     </div>
