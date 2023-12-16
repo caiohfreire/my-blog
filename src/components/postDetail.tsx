@@ -1,4 +1,4 @@
-import { NavigateOptions, useLocation, useParams } from "react-router-dom";
+import { NavigateOptions, useParams } from "react-router-dom";
 import { IPost, usePostContext } from "../context/postContext"
 import { useEffect } from "react";
 import { Format } from "../utils/formatter";

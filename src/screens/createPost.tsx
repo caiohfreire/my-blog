@@ -7,7 +7,6 @@ import '../index.css';
 import { Axios } from "../service/axios";
 import { useAuthContext } from "../context/authContext";
 import { useLocation } from "react-router-dom";
-import { FaRegTrashCan } from "react-icons/fa6";
 
 export default function CreatePost() {
   const { user } = useAuthContext();
