@@ -13,6 +13,7 @@ interface AuthContextType {
   Login: (email: string, password: string) => void;
   isAuthenticated: boolean;
   user: IUser | null;
+  Logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -70,6 +71,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }
 
+  async function Logout() {
+    try {
+      Cookies.remove('token');
+      setIsAuthenticated(false);
+      router('/')
+    } catch (error) {
+      console.log('Error Logout', error)
+    }
+  }
+
   // Verifing if token is valid
   useEffect(() => {
     const token = Cookies.get('token');
@@ -81,7 +92,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   return (
     <AuthContext.Provider
-      value={{ Login, isAuthenticated, user }}>
+      value={{ Login, isAuthenticated, user, Logout }}>
       {children}
     </AuthContext.Provider>
   );

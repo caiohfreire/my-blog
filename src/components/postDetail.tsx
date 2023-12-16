@@ -1,4 +1,4 @@
-import { NavigateOptions, useParams } from "react-router-dom";
+import { NavigateOptions, useLocation, useParams } from "react-router-dom";
 import { IPost, usePostContext } from "../context/postContext"
 import { useEffect } from "react";
 import { Format } from "../utils/formatter";
@@ -7,6 +7,8 @@ import DOMPurify from 'dompurify';
 import { useAuthContext } from "../context/authContext";
 import { SkeletonDetail } from "../utils/skeletonDetail";
 import { useNavigate } from 'react-router-dom';
+import { FaRegTrashCan } from "react-icons/fa6";
+import { FiEdit } from "react-icons/fi";
 
 interface CustomNavigateOptions extends NavigateOptions {
   post?: IPost;
@@ -14,7 +16,7 @@ interface CustomNavigateOptions extends NavigateOptions {
 
 export default function PostDetail() {
   const { isAuthenticated } = useAuthContext();
-  const { selectedPost, getPostByID, isLoading } = usePostContext();
+  const { selectedPost, getPostByID, isLoading, deletePost } = usePostContext();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -33,17 +35,27 @@ export default function PostDetail() {
     navigate(`/create/${id}`, navigateOptions);
   };
 
+  const handleDelete = () => {
+    // const navigateOptions: CustomNavigateOptions = { state: { post: selectedPost } };
+    try {
+      deletePost(id!);
+      // navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="max-w-[1280px] mx-auto px-4 h-full pt-32" >
 
       {isLoading ? (
         <SkeletonDetail />
       ) : (
-        <div className="flex flex-col w-full">
+        <div className="relative flex flex-col w-full">
 
           <h2 className="text-5xl font-bold text-center">{selectedPost.title}</h2>
 
-          <div className="relative inline-flex items-center justify-center w-full">
+          <div className="inline-flex items-center justify-center w-full">
 
             <div className="flex flex-col py-8 text-center min-w-full font-medium text-neutral-500">
               <span className="font-medium text-base">{Format(selectedPost.date)}</span>
@@ -51,12 +63,13 @@ export default function PostDetail() {
             </div>
 
             {isAuthenticated && (
-              <div className="absolute right-0 w-2/12">
-                <button
+              <div className="flex gap-2 absolute top-0 right-0">
+                <FaRegTrashCan
+                  onClick={handleDelete}
+                  className="text-lg dark:text-red-500 cursor-pointer" title="Delete" />
+                <FiEdit
                   onClick={handleEdit}
-                  className="border border-stone-500 p-4 w-full rounded-md shadow-lg text-white dark:text-black bg-stone-900 dark:bg-[#F3A424]">
-                  Edit
-                </button>
+                  className="text-lg dark:text-[#F3A424] cursor-pointer" title="Edit" />
               </div>
             )}
 

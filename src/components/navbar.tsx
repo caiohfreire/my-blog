@@ -5,7 +5,7 @@ import { Tooltip } from "@nextui-org/react";
 import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
-  const { isAuthenticated } = useAuthContext();
+  const { isAuthenticated, Logout } = useAuthContext();
   const router = useNavigate();
 
   return (
@@ -25,7 +25,7 @@ export default function Navbar() {
 
                 <Tooltip content="Logout">
                   <li className='text-white dark:text-stone-800'>
-                    <FaPowerOff className="w-5 h-5" />
+                    <FaPowerOff className="w-5 h-5" onClick={Logout} />
                   </li>
                 </Tooltip>
               </ul>

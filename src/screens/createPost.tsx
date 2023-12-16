@@ -7,7 +7,7 @@ import '../index.css';
 import { Axios } from "../service/axios";
 import { useAuthContext } from "../context/authContext";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
+import { FaRegTrashCan } from "react-icons/fa6";
 
 export default function CreatePost() {
   const { user } = useAuthContext();
@@ -27,6 +27,7 @@ export default function CreatePost() {
       setContent(post.content);
     }
   }, [post]);
+  // console.log('POST ID', post.id)
 
   function ChangeFile(e: React.FormEvent<HTMLInputElement>) {
     const target = e.target as HTMLInputElement & {
@@ -47,7 +48,6 @@ export default function CreatePost() {
 
     try {
       const formData = new FormData();
-      formData.append('id', post.id);
       formData.append('title', title);
       formData.append('summary', summary);
       formData.append('image', files!);
@@ -61,7 +61,7 @@ export default function CreatePost() {
 
       if (post) {
         formData.append('postId', post.id);
-        response = await Axios.put(`/Edit/${post.id}`, Object.fromEntries(formData.entries()));
+        response = await Axios.put(`/Edit/${post.id}`, formData);
         console.log('RESPONSE DO IF', response);
       } else {
         response = await Axios.post('/Publish', formData);
@@ -74,16 +74,13 @@ export default function CreatePost() {
       setFiles(undefined);
       setContent('');
     } catch (error) {
-      // if (axios.isAxiosError(error)) {
-      //   console.error('Axios Error:', error.response);
-      // } else {
-      //   console.error('Error publishing post:', error);
-      // }
+      console.error('Error:', error);
     }
   }
 
   return (
     <div className="flex max-w-[1280px] mx-auto px-4 h-screen">
+
       <form
         encType="multipart/form-data"
         onSubmit={handlePublish}
@@ -115,7 +112,7 @@ export default function CreatePost() {
           color="warning"
           type="submit"
           className="shadow-lg font-bold max-h-10 h-full">
-          {post.id ? 'Edit Post' : 'Publish Post'}
+          Publish Post
         </Button>
       </form>
     </div>

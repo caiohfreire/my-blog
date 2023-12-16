@@ -1,5 +1,6 @@
 import { createContext, useState, useContext } from 'react';
 import { Axios } from '../service/axios';
+import { useNavigate } from 'react-router-dom';
 
 export interface IPost {
   id: string,
@@ -18,6 +19,7 @@ interface PostContextType {
   selectedPost: IPost | null;
   getPostByID: (id: string) => void;
   isLoading: boolean;
+  deletePost: (id: string) => void;
 }
 
 const PostContext = createContext<PostContextType | undefined>(undefined);
@@ -26,6 +28,7 @@ export const PostProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [post, setPost] = useState([]);
   const [selectedPost, setSelectedPost] = useState<IPost | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   async function getPosts() {
     setIsLoading(true);
@@ -52,9 +55,19 @@ export const PostProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }
 
+  async function deletePost(id: string) {
+    try {
+      const response = await Axios.delete(`/Delete/${id}`);
+      console.log(response.data);
+      navigate('/');
+    } catch (error) {
+      console.log('Error delete post', error)
+    }
+  }
+
   return (
     <PostContext.Provider
-      value={{ post, getPosts, selectedPost, getPostByID, isLoading }}>
+      value={{ post, getPosts, selectedPost, getPostByID, isLoading, deletePost }}>
       {children}
     </PostContext.Provider>
   )
