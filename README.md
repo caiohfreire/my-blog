@@ -1,30 +1,62 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# My Blog
 
-Currently, two official plugins are available:
+Um blog para servir como documentação mais objetiva, onde eu vou publicar como resolver um problema que eu tive, assim eu tenho onde recorrer para lidar com o problema novamente.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## Screenshots
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+![App Screenshot](https://i.ibb.co/tKqG4Pb/image.png)
 
-- Configure the top-level `parserOptions` property like this:
+![App Screenshot](https://i.ibb.co/QYcxxpK/image.png)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+![App Screenshot](https://i.ibb.co/M6HdMZd/image.png)
+
+
+## Tech Stack
+
+**Vite** ✅ ||
+**React** ✅ ||
+**TailwindCSS** ✅ ||
+**Typescript** ✅ ||
+**Express** ✅ ||
+**MongoDB** ✅ ||
+**Prisma ORM** ✅ 
+
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/devCaioFreire/my-blog.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Go to the project directory
+
+```bash
+  cd my-project
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run start
+```
+
+
+## Authors
+
+- [@devCaioFreire](https://www.github.com/devCaioFreire)
+
+
+
+
+![App Screenshot](https://i.ibb.co/Lg7TR2P/caio-freire-removebg-preview-removebg-preview-1.png)
