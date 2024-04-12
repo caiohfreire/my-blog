@@ -1,7 +1,6 @@
 import { useAuthContext } from '../context/authContext';
 import Toggle from '../utils/toggle';
 import { FaPowerOff, FaNewspaper } from "react-icons/fa6";
-import { Tooltip } from "@nextui-org/react";
 import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
@@ -19,17 +18,17 @@ export default function Navbar() {
             {isAuthenticated && (
               <ul className='flex items-center gap-8'>
 
-                <Tooltip content="Write a new post">
+                {/* <Tooltip content="Write a new post">
                   <li className='text-white dark:text-stone-800'>
                     <FaNewspaper className="w-5 h-5 cursor-pointer" onClick={() => router('/create')} />
                   </li>
-                </Tooltip>
+                </Tooltip> */}
 
-                <Tooltip content="Logout">
+                {/* <Tooltip content="Logout">
                   <li className='text-white dark:text-stone-800'>
                     <FaPowerOff className="w-5 h-5" onClick={Logout} />
                   </li>
-                </Tooltip>
+                </Tooltip> */}
               </ul>
             )}
             <Toggle />

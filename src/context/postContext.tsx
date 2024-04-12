@@ -9,8 +9,12 @@ export interface IPost {
   content: string;
   image: string;
   date: Date;
-  author: string;
+  author: Author;
   authorID: string,
+}
+interface Author{
+  name:string,
+  email?:string,
 }
 
 interface PostContextType {

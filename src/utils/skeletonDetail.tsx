@@ -1,8 +1,9 @@
-import { Card, Skeleton } from "@nextui-org/react"
+import { Card } from "../components/lib/ui/card"
+import { Skeleton } from "../components/lib/ui/skeleton"
 
 export const SkeletonDetail = () => {
   return (
-    <Card className="flex flex-col gap-4 min-h-full space-y-5 p-4" radius="lg">
+    <Card className="flex flex-col gap-4 min-h-full space-y-5 p-4">
 
       {/* TITLE */}
       <Skeleton className="w-full rounded-lg">

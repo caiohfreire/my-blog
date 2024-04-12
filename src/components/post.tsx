@@ -1,7 +1,7 @@
-import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { Format } from "../utils/formatter";
 import { IPostProps } from "../model/IPost";
+import { Button } from "./lib/ui/button";
 
 export default function Post({ data }: IPostProps) {
   const router = useNavigate();
@@ -22,7 +22,7 @@ export default function Post({ data }: IPostProps) {
           <div className="flex flex-col gap-2">
             <h2 className="text-4xl font-bold">{data.title}</h2>
             <div className="flex gap-4 items-center ">
-              <h2 className="text-base font-bold text-neutral-800 dark:text-neutral-300">{data.author}</h2>
+              <h2 className="text-base font-bold text-neutral-800 dark:text-neutral-300">{data.author.name}</h2>
               <span className="text-sm font-medium">{Format(data.date)}</span>
             </div>
           </div>

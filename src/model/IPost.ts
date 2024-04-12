@@ -5,7 +5,7 @@ export interface IPostHomeType {
   content: string;
   image: string;
   date: Date;
-  author: string;
+  author: { name: string };
   authorID: string,
 }
 

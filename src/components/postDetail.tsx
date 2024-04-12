@@ -59,7 +59,7 @@ export default function PostDetail() {
 
             <div className="flex flex-col py-8 text-center min-w-full font-medium text-neutral-500">
               <span className="font-medium text-base">{Format(selectedPost.date)}</span>
-              <span className="font-bold">by @{selectedPost.author}</span>
+              <span className="font-bold">by @{selectedPost.author.name}</span>
             </div>
 
             {isAuthenticated && (

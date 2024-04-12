@@ -1,4 +1,3 @@
-import { Button, Input } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -7,6 +6,7 @@ import '../index.css';
 import { Axios } from "../service/axios";
 import { useAuthContext } from "../context/authContext";
 import { useLocation } from "react-router-dom";
+import { Button } from "../components/lib/ui/button";
 
 export default function CreatePost() {
   const { user } = useAuthContext();
@@ -84,14 +84,14 @@ export default function CreatePost() {
         encType="multipart/form-data"
         onSubmit={handlePublish}
         className="flex flex-col gap-4 pb-4 w-full pt-[120px] min-h-screen h-full">
-        <Input
+        {/* <Input
           value={title}
           placeholder="Title"
           onChange={(ev) => setTitle(ev.target.value)} />
         <Input
           value={summary}
           placeholder="Summary"
-          onChange={(ev) => setSummary(ev.target.value)} />
+          onChange={(ev) => setSummary(ev.target.value)} /> */}
         <div className="flex">
           <input
             type="file"

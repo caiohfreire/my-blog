@@ -1,20 +1,20 @@
-import { NextUIProvider } from "@nextui-org/react";
 import { Router } from "./routes/router";
 import { AuthProvider } from "./context/authContext";
 import Navbar from "./components/navbar";
 import { PostProvider } from "./context/postContext";
+import { DarkModeProvider } from "./context/dark-mode-context";
 
 function App() {
 
   return (
-    <NextUIProvider>
+    <DarkModeProvider>
       <AuthProvider>
         <PostProvider>
           <Navbar />
           <Router />
         </PostProvider>
       </AuthProvider>
-    </NextUIProvider>
+    </DarkModeProvider>
   )
 }
 
